@@ -2,6 +2,9 @@ name = "openpims"
 main = "src/index.js"
 compatibility_date = "2023-12-01"
 
+[vars]
+OPENPIMS_CONFIG_URL = "https://portalix.com/openpims.json"
+
 [env.production]
 vars = { ENVIRONMENT = "production" }
 
