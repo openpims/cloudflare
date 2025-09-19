@@ -1,0 +1,24 @@
+{
+  "name": "my-worker-template",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker template for OpenPIMS cookie filtering",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "deploy:staging": "wrangler deploy --env staging",
+    "deploy:production": "wrangler deploy --env production"
+  },
+  "keywords": [
+    "cloudflare",
+    "worker",
+    "openpims",
+    "cookies",
+    "privacy"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}

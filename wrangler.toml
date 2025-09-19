@@ -1,0 +1,9 @@
+name = "my-worker"
+main = "src/index.js"
+compatibility_date = "2023-12-01"
+
+[env.production]
+vars = { ENVIRONMENT = "production" }
+
+[env.staging]
+vars = { ENVIRONMENT = "staging" }
