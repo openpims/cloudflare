@@ -4,8 +4,10 @@ addEventListener('fetch', event => {
 
 async function handleRequest(request) {
   const xOpenpimsHeader = request.headers.get('x-openpims')
+  const userAgent = request.headers.get('user-agent')
+  const openPIMSUrl = parseOpenPIMSFromUserAgent(userAgent)
 
-  if (!xOpenpimsHeader) {
+  if (!xOpenpimsHeader && !openPIMSUrl) {
     const url = new URL(request.url)
     //const redirectUrl = OPENPIMS_URL || `https://${url.hostname}`
     const cookieConfigUrl = OPENPIMS_CONFIG_URL || `https://${url.hostname}/openpims.json`
@@ -25,7 +27,14 @@ async function handleRequest(request) {
 
   try {
     const url = new URL(request.url)
-    const cookieConfigUrl = OPENPIMS_CONFIG_URL || `https://${url.hostname}/openpims.json`
+    let cookieConfigUrl
+
+    if (openPIMSUrl) {
+      cookieConfigUrl = `${openPIMSUrl}/openpims.json`
+    } else {
+      cookieConfigUrl = OPENPIMS_CONFIG_URL || `https://${url.hostname}/openpims.json`
+    }
+
     const allowedCookies = await getAllowedCookies(cookieConfigUrl)
 
     if (!allowedCookies || allowedCookies.length === 0) {
@@ -95,6 +104,20 @@ function getCookieName(cookieHeader) {
   }
 
   return nameValuePair.substring(0, equalIndex).trim()
+}
+
+function parseOpenPIMSFromUserAgent(userAgent) {
+  if (!userAgent) {
+    return null
+  }
+
+  const openPIMSMatch = userAgent.match(/OpenPIMS\/[\d.]+\s+\(\+([^)]+)\)/)
+
+  if (openPIMSMatch && openPIMSMatch[1]) {
+    return openPIMSMatch[1]
+  }
+
+  return null
 }
 
 async function isRequestFromEU(request) {
