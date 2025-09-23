@@ -6,10 +6,28 @@ async function handleRequest(request) {
   const xOpenpimsHeader = request.headers.get('x-openpims')
   const userAgent = request.headers.get('user-agent')
   const openPIMSUrl = parseOpenPIMSFromUserAgent(userAgent)
+  const url = new URL(request.url)
+  const cookies = request.headers.get('cookie')
+
+  const hasAcceptAllCookiesParam = url.searchParams.get('accept_all_cookies') === '1'
+  const hasAcceptAllCookiesCookie = cookies && cookies.includes('openpims_accept_all_cookies=true')
+
+  if (hasAcceptAllCookiesParam) {
+    const response = await fetch(request)
+    const newResponse = new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers: response.headers
+    })
+    newResponse.headers.append('set-cookie', 'openpims_accept_all_cookies=true; Path=/; HttpOnly; SameSite=Lax; Max-Age=31536000')
+    return newResponse
+  }
+
+  if (hasAcceptAllCookiesCookie) {
+    return fetch(request)
+  }
 
   if (!xOpenpimsHeader && !openPIMSUrl) {
-    const url = new URL(request.url)
-    //const redirectUrl = OPENPIMS_URL || `https://${url.hostname}`
     const cookieConfigUrl = OPENPIMS_CONFIG_URL || `https://${url.hostname}/openpims.json`
     return Response.redirect(`https://openpims.de/?url=${encodeURIComponent(cookieConfigUrl)}`, 302)
   }
