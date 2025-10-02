@@ -39,24 +39,24 @@ async function handleRequest(request) {
       const manageLinkHtml = `
         <div style="position: fixed; bottom: 20px; right: 20px; z-index: 999998; -webkit-transform: translateZ(0);">
           <button onclick="document.getElementById('openpims-settings-popup').style.display='flex'" style="display: inline-flex; align-items: center; gap: 8px; background: #007bff; color: white; padding: 10px 20px; border: none; text-decoration: none; border-radius: 6px; font-size: 14px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; box-shadow: 0 2px 10px rgba(0,0,0,0.2); cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#0056b3'" onmouseout="this.style.background='#007bff'" ontouchstart="this.style.background='#0056b3'" ontouchend="this.style.background='#007bff'">
-            🍪 Cookie-Einstellungen
+            🍪 Cookie Settings
           </button>
         </div>
         <div id="openpims-settings-popup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 999999; align-items: center; justify-content: center; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
           <div style="background: white; padding: 30px; border-radius: 12px; max-width: 500px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); text-align: center; position: relative;">
             <button onclick="document.getElementById('openpims-settings-popup').style.display='none'" style="position: absolute; top: 10px; right: 10px; background: transparent; border: none; font-size: 24px; cursor: pointer; color: #999; line-height: 1;">&times;</button>
             <img src="${OPENPIMS_LOGO_SVG}" alt="OpenPIMS Logo" style="width: 120px; height: auto; margin: 0 auto 20px; display: block;">
-            <h2 style="margin: 0 0 20px 0; color: #333; font-size: 24px;">Cookie-Einstellungen</h2>
+            <h2 style="margin: 0 0 20px 0; color: #333; font-size: 24px;">Cookie Settings</h2>
             <p style="margin: 0 0 25px 0; color: #666; font-size: 16px; line-height: 1.5;">
-              Sie haben aktuell alle Cookies akzeptiert. Möchten Sie Ihre Einstellungen ändern?
+              You have currently accepted all cookies. Would you like to change your settings?
             </p>
             <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
               <button onclick="document.getElementById('openpims-settings-popup').style.display='none'" style="background: #28a745; color: white; padding: 12px 30px; border: none; border-radius: 6px; font-size: 16px; font-weight: 500; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#218838'" onmouseout="this.style.background='#28a745'">
-                Alle Cookies akzeptieren
+                Accept all cookies
               </button>
               <a href="${openpimsLink}" style="display: inline-flex; align-items: center; gap: 8px; background: #007bff; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; font-size: 16px; font-weight: 500; transition: background 0.2s;">
                 <img src="${OPENPIMS_LOGO_SVG}" alt="OpenPIMS" style="width: 20px; height: 20px;">
-                Mit OpenPIMS verwalten
+                Manage with OpenPIMS
               </a>
             </div>
           </div>
@@ -97,17 +97,17 @@ async function handleRequest(request) {
       <div id="openpims-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 999999; display: flex; align-items: center; justify-content: center; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
         <div style="background: white; padding: 30px; border-radius: 12px; max-width: 500px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); text-align: center;">
           <img src="https://openpims.de/openpims.svg" alt="OpenPIMS Logo" style="width: 120px; height: auto; margin: 0 auto 20px; display: block;">
-          <h2 style="margin: 0 0 20px 0; color: #333; font-size: 24px;">Cookie-Management mit OpenPIMS</h2>
+          <h2 style="margin: 0 0 20px 0; color: #333; font-size: 24px;">Cookie Management with OpenPIMS</h2>
           <p style="margin: 0 0 25px 0; color: #666; font-size: 16px; line-height: 1.5;">
-            Diese Website verwendet OpenPIMS für die Verwaltung von Cookies und Ihrer Datenschutz-Einstellungen.
+            This website uses OpenPIMS to manage cookies and your privacy settings.
           </p>
           <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
             <button onclick="window.location.href = window.location.href + (window.location.href.includes('?') ? '&' : '?') + 'accept_all_cookies=1'" style="background: #28a745; color: white; padding: 12px 30px; border: none; border-radius: 6px; font-size: 16px; font-weight: 500; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#218838'" onmouseout="this.style.background='#28a745'">
-              Alle Cookies akzeptieren
+              Accept all cookies
             </button>
             <a href="${openpimsLink}" style="display: inline-flex; align-items: center; gap: 8px; background: #007bff; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; font-size: 16px; font-weight: 500; transition: background 0.2s;">
               <img src="https://openpims.de/openpims.svg" alt="OpenPIMS" style="width: 20px; height: 20px;">
-              Cookie-Einstellungen öffnen
+              Open cookie settings
             </a>
           </div>
         </div>
@@ -150,7 +150,7 @@ async function handleRequest(request) {
       <div style="position: fixed; bottom: 20px; right: 20px; z-index: 999998; -webkit-transform: translateZ(0);">
         <a href="${openpimsLink}" style="display: inline-flex; align-items: center; gap: 6px; background: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-size: 14px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; box-shadow: 0 2px 10px rgba(0,0,0,0.2); transition: background 0.2s; -webkit-tap-highlight-color: transparent;" onmouseover="this.style.background='#0056b3'" onmouseout="this.style.background='#007bff'" ontouchstart="this.style.background='#0056b3'" ontouchend="this.style.background='#007bff'">
           <img src="${OPENPIMS_LOGO_SVG}" alt="OpenPIMS" style="width: 18px; height: 18px;">
-          Cookie-Einstellungen
+          Cookie Settings
         </a>
       </div>
     `

@@ -1,19 +1,19 @@
 # OpenPIMS Cookie Filter Worker
 
-Ein Cloudflare Worker für GDPR-konforme Cookie-Filterung mit OpenPIMS Integration.
+A Cloudflare Worker for GDPR-compliant cookie filtering with OpenPIMS integration.
 
-## Überblick
+## Overview
 
-Dieser Cloudflare Worker implementiert eine intelligente Cookie-Filterung für GDPR-Compliance. Er erkennt OpenPIMS-Nutzer, filtert Cookies basierend auf konfigurierbaren Allow-Listen und bietet eine benutzerfreundliche Oberfläche für das Cookie-Consent-Management.
+This Cloudflare Worker implements intelligent cookie filtering for GDPR compliance. It detects OpenPIMS users, filters cookies based on configurable allow-lists, and provides a user-friendly interface for cookie consent management.
 
 ## Features
 
-- **GDPR-konformes Cookie-Management**: Automatische Cookie-Filterung für EU-Anfragen
-- **OpenPIMS-Integration**: Nahtlose Integration mit dem OpenPIMS Cookie-Management-System
-- **Accept-All-Cookies-Modus**: Option zum Akzeptieren aller Cookies mit persistenter Einstellung
-- **Benutzerfreundliche UI**: Overlay-Popup für Nicht-OpenPIMS-Nutzer und Cookie-Management-Button
-- **EU-Erkennung**: Automatische Erkennung von EU-Anfragen über Cloudflare's Geo-Location
-- **Flexible Konfiguration**: Unterstützung mehrerer Konfigurationsquellen
+- **GDPR-compliant Cookie Management**: Automatic cookie filtering for EU requests
+- **OpenPIMS Integration**: Seamless integration with the OpenPIMS cookie management system
+- **Accept-All-Cookies Mode**: Option to accept all cookies with persistent setting
+- **User-friendly UI**: Overlay popup for non-OpenPIMS users and cookie management button
+- **EU Detection**: Automatic detection of EU requests via Cloudflare's geo-location
+- **Flexible Configuration**: Support for multiple configuration sources
 
 ## Installation
 
@@ -23,9 +23,9 @@ cd cloudflare
 npm install
 ```
 
-## Entwicklung
+## Development
 
-Lokalen Entwicklungsserver starten:
+Start local development server:
 ```bash
 npm run dev
 ```
@@ -33,106 +33,106 @@ npm run dev
 ## Deployment
 
 ```bash
-# Standard-Deployment
+# Default deployment
 npm run deploy
 
-# Staging-Umgebung
+# Staging environment
 npm run deploy:staging
 
-# Produktiv-Umgebung
+# Production environment
 npm run deploy:production
 ```
 
-## Funktionsweise
+## How It Works
 
-### 1. Request-Verarbeitung
+### 1. Request Processing
 
-Der Worker prüft eingehende Requests auf:
-- `x-openpims` Header
-- OpenPIMS im User-Agent String
-- `accept_all_cookies` Query-Parameter
-- `openpims_accept_all_cookies` Cookie
+The worker checks incoming requests for:
+- `x-openpims` header
+- OpenPIMS in User-Agent string
+- `accept_all_cookies` query parameter
+- `openpims_accept_all_cookies` cookie
 
 ### 2. User Flows
 
-**Nicht-OpenPIMS-Nutzer:**
-- Sehen ein Overlay-Popup mit OpenPIMS-Logo
-- Zwei Optionen: "Alle Cookies akzeptieren" oder "Cookie-Einstellungen öffnen"
+**Non-OpenPIMS Users:**
+- See an overlay popup with OpenPIMS logo
+- Two options: "Accept all cookies" or "Open cookie settings"
 
-**Accept-All-Cookie-Nutzer:**
-- Cookie wird gesetzt bei Klick auf "Alle Cookies akzeptieren"
-- Cookie-Management-Button unten rechts für Einstellungsänderungen
+**Accept-All-Cookie Users:**
+- Cookie is set when clicking "Accept all cookies"
+- Cookie management button at bottom right for changing settings
 
-**OpenPIMS-Nutzer:**
-- Direkter Zugriff ohne Popup
-- Fixer Link zu OpenPIMS-Einstellungen unten rechts
+**OpenPIMS Users:**
+- Direct access without popup
+- Fixed link to OpenPIMS settings at bottom right
 
-### 3. Cookie-Filterung
+### 3. Cookie Filtering
 
-- Nur aktiv für EU-Anfragen
-- Filtert `Set-Cookie` Headers basierend auf Allow-Liste
-- Erlaubte Cookies werden aus Konfiguration geladen
+- Only active for EU requests
+- Filters `Set-Cookie` headers based on allow-list
+- Allowed cookies are loaded from configuration
 
-## Konfiguration
+## Configuration
 
-### Umgebungsvariablen (wrangler.toml)
+### Environment Variables (wrangler.toml)
 
 ```toml
 [vars]
 OPENPIMS_CONFIG_URL = "https://example.com/openpims.json"  # Optional
-ENVIRONMENT = "production"  # oder "staging"
+ENVIRONMENT = "production"  # or "staging"
 ```
 
-### Cookie-Konfiguration
+### Cookie Configuration
 
-Die erlaubten Cookies werden in dieser Priorität ermittelt:
+Allowed cookies are determined in this priority:
 
-1. **OpenPIMS URL aus User-Agent**: Format `OpenPIMS/X.X.X (+https://example.com)`
-2. **Umgebungsvariable**: `OPENPIMS_CONFIG_URL`
-3. **Standard**: `https://{request-domain}/openpims.json`
+1. **OpenPIMS URL from User-Agent**: Format `OpenPIMS/X.X.X (+https://example.com)`
+2. **Environment Variable**: `OPENPIMS_CONFIG_URL`
+3. **Default**: `https://{request-domain}/openpims.json`
 
-### Konfigurationsformat
+### Configuration Format
 
-Als Array:
+As array:
 ```json
 ["session", "user_pref", "analytics"]
 ```
 
-Als Objekt:
+As object:
 ```json
 {
   "allowed_cookies": ["session", "user_pref", "analytics"]
 }
 ```
 
-## UI-Komponenten
+## UI Components
 
-### Overlay-Popup
-- Vollbild-Overlay mit OpenPIMS-Logo (120px)
-- Zwei Action-Buttons für Cookie-Entscheidung
-- Nur bei HTML-Responses ohne OpenPIMS-Erkennung
+### Overlay Popup
+- Fullscreen overlay with OpenPIMS logo (120px)
+- Two action buttons for cookie decision
+- Only shown for HTML responses without OpenPIMS detection
 
-### Cookie-Management-Button
-- Fixierte Position unten rechts
-- Öffnet Popup zur Einstellungsänderung
-- Ermöglicht Wechsel zu OpenPIMS-Management
+### Cookie Management Button
+- Fixed position at bottom right
+- Opens popup for changing settings
+- Allows switching to OpenPIMS management
 
-### OpenPIMS-Link
-- Kleines Logo (18px) mit Text unten rechts
-- Mobile-optimiert mit Touch-Events
-- Hardware-beschleunigt für bessere Performance
+### OpenPIMS Link
+- Small logo (18px) with text at bottom right
+- Mobile-optimized with touch events
+- Hardware-accelerated for better performance
 
-## Technische Details
+## Technical Details
 
-- **Einzel-Datei-Architektur**: Gesamte Logik in `src/index.js`
-- **Embedded Logo**: OpenPIMS-Logo als Base64 Data-URL eingebettet
-- **EU-Erkennung**: Nutzt Cloudflare's `request.cf.country`
-- **Mobile Optimierung**: Touch-Events und Hardware-Beschleunigung
+- **Single-file Architecture**: All logic in `src/index.js`
+- **Embedded Logo**: OpenPIMS logo embedded as Base64 Data-URL
+- **EU Detection**: Uses Cloudflare's `request.cf.country`
+- **Mobile Optimization**: Touch events and hardware acceleration
 
-## Lizenz
+## License
 
-[Lizenz hier einfügen]
+[Insert license here]
 
 ## Support
 
-Bei Fragen oder Problemen besuchen Sie [OpenPIMS.de](https://openpims.de)
+For questions or issues visit [OpenPIMS.de](https://openpims.de)
