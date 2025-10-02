@@ -49,6 +49,7 @@ npm run deploy:production
 
 The worker checks incoming requests for:
 - `x-openpims` header
+- `x-openpims` cookie
 - OpenPIMS in User-Agent string
 - `accept_all_cookies` query parameter
 - `openpims_accept_all_cookies` cookie
@@ -88,8 +89,10 @@ ENVIRONMENT = "production"  # or "staging"
 Allowed cookies are determined in this priority:
 
 1. **OpenPIMS URL from User-Agent**: Format `OpenPIMS/X.X.X (+https://example.com)`
-2. **Environment Variable**: `OPENPIMS_CONFIG_URL`
-3. **Default**: `https://{request-domain}/openpims.json`
+2. **x-openpims Cookie**: URL from the `x-openpims` cookie value
+3. **x-openpims Header**: URL from the `X-OpenPIMS` header value
+4. **Environment Variable**: `OPENPIMS_CONFIG_URL`
+5. **Default**: `https://{request-domain}/openpims.json`
 
 ### Configuration Format
 

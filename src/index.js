@@ -10,6 +10,7 @@ async function handleRequest(request) {
   const openPIMSUrl = parseOpenPIMSFromUserAgent(userAgent)
   const url = new URL(request.url)
   const cookies = request.headers.get('cookie')
+  const xOpenpimsCookie = getCookieValue(cookies, 'x-openpims')
 
   const hasAcceptAllCookiesParam = url.searchParams.get('accept_all_cookies') === '1'
   const hasAcceptAllCookiesCookie = cookies && cookies.includes('openpims_accept_all_cookies=true')
@@ -79,7 +80,7 @@ async function handleRequest(request) {
     return response
   }
 
-  if (!xOpenpimsHeader && !openPIMSUrl) {
+  if (!xOpenpimsHeader && !openPIMSUrl && !xOpenpimsCookie) {
     const cookieConfigUrl = OPENPIMS_CONFIG_URL || `https://${url.hostname}/openpims.json`
     const openpimsLink = `https://openpims.de/?url=${encodeURIComponent(cookieConfigUrl)}`
 
@@ -133,11 +134,15 @@ async function handleRequest(request) {
   const contentType = response.headers.get('content-type') || ''
 
   // Add cookie management link for OpenPIMS users on HTML pages
-  if ((xOpenpimsHeader || openPIMSUrl) && contentType.includes('text/html')) {
+  if ((xOpenpimsHeader || openPIMSUrl || xOpenpimsCookie) && contentType.includes('text/html')) {
     let cookieConfigUrl
 
     if (openPIMSUrl) {
       cookieConfigUrl = `${openPIMSUrl}/openpims.json`
+    } else if (xOpenpimsCookie) {
+      cookieConfigUrl = `${xOpenpimsCookie}/openpims.json`
+    } else if (xOpenpimsHeader) {
+      cookieConfigUrl = `${xOpenpimsHeader}/openpims.json`
     } else {
       cookieConfigUrl = OPENPIMS_CONFIG_URL || `https://${url.hostname}/openpims.json`
     }
@@ -182,6 +187,10 @@ async function handleRequest(request) {
 
     if (openPIMSUrl) {
       cookieConfigUrl = `${openPIMSUrl}/openpims.json`
+    } else if (xOpenpimsCookie) {
+      cookieConfigUrl = `${xOpenpimsCookie}/openpims.json`
+    } else if (xOpenpimsHeader) {
+      cookieConfigUrl = `${xOpenpimsHeader}/openpims.json`
     } else {
       cookieConfigUrl = OPENPIMS_CONFIG_URL || `https://${url.hostname}/openpims.json`
     }
@@ -255,6 +264,20 @@ function getCookieName(cookieHeader) {
   }
 
   return nameValuePair.substring(0, equalIndex).trim()
+}
+
+function getCookieValue(cookieString, cookieName) {
+  if (!cookieString) return null
+
+  const cookies = cookieString.split(';')
+  for (const cookie of cookies) {
+    const [name, value] = cookie.trim().split('=')
+    if (name === cookieName) {
+      return value ? decodeURIComponent(value) : ''
+    }
+  }
+
+  return null
 }
 
 function parseOpenPIMSFromUserAgent(userAgent) {
