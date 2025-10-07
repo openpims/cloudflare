@@ -1,5 +1,7 @@
 # OpenPIMS Cookie Filter Worker
 
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/openpims/cloudflare)
+
 A Cloudflare Worker for GDPR-compliant cookie filtering with OpenPIMS integration.
 
 ## Overview
