@@ -1,10 +1,25 @@
 const OPENPIMS_LOGO_SVG = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTExLjk5OSA1MTEuOTk5Ij48ZyB0cmFuc2Zvcm09Im1hdHJpeCguOTUgMCAwIC45NSAxMi44IDEyLjgpIj48cGF0aCBmaWxsPSJvcmFuZ2UiIGQ9Ik01MDEuNzgzIDIzNS4yMzdjLTI5LjctMTAuNDk5LTQ5Ljc5OS0zOC42OTktNDkuNzk5LTcwLjE5OS42MDEtNS4xMDEtMS44LTkuMy01LjctMTIuOS0zLjMtMi43MDEtOC4zOTktMy45LTEyLjU5OS0zLjMwMS0yNS4yMDEgMy42LTQ5LjItMy42LTY3LjUtMTguM3MtMzEuMjAxLTM2Ljg5OS0zMy4zLTYyLjY5OWMtLjMtNC41MDEtMy4wMDEtOC43MDEtNi45MDEtMTEuNC0zLjktMi40MDEtOC42OTktMy4wMDEtMTMuMi0xLjIwMS00MC44IDE0LjctNzkuMi0xMS4xLTk0LjQ5OS00Ni4xOTktMy4wMDEtNi42MDEtOS45MDEtMTAuMjAxLTE3LjEtOC42OTktNTcuNjAxIDEyLjktMTA5LjQwMSA0OS4wNi0xNDQuOCA5NC42NjEtODEuODk5IDEwNS4zLTczLjUgMjUwLjIwMSAxOC4zIDM0Mi4zMDEgOTkuOTAxIDk5LjU5OCAyNjEgOTkuNTk4IDM2MC42MDEgMCA0Ni4xOTktNDYuMjAxIDc2LjctMTEyLjA2MyA3Ni43LTE4Mi4yNjItLjYwMy05LjkwMS0uOTAzLTE2LjUtMTAuMjAzLTE5LjgwMiIgZGF0YS1vcmlnaW5hbD0iI2ZlYTgzMiIvPjxwYXRoIGZpbGw9Im9yYW5nZSIgZD0iTTUxMS45ODMgMjU1LjAzOGMwIDcwLjE5OS0zMC41IDEzNi4wNjEtNzYuNyAxODIuMjYyLTk5LjYgOTkuNTk4LTI2MC43IDk5LjU5OC0zNjAuNjAxIDBsMjkxLjUwMS0zMDYuNzYzYzE4LjMgMTQuNyA0Mi4yOTkgMjEuODk5IDY3LjUgMTguMyA0LjItLjU5OSA5LjMuNjAxIDEyLjU5OSAzLjMwMSAzLjkgMy42IDYuMzAxIDcuNzk4IDUuNyAxMi45IDAgMzEuNSAyMC4wOTkgNTkuNyA0OS43OTkgNzAuMTk5IDkuMzAyIDMuMzAyIDkuNjAyIDkuOTAxIDEwLjIwMiAxOS44MDEiIGRhdGEtb3JpZ2luYWw9IiNmZTk5MjMiLz48cGF0aCBmaWxsPSIjNzEzNzA4IiBkPSJNMTkzLjQ4NCAzMTIuNDk5Yy03LjUtNi41OTktMTcuNzAxLTEwLjQ5OS0yOC41LTEwLjQ5OS0yNC45MDEgMC00NSAyMC4wOTktNDUgNDUgMCAxMS43IDQuNTAxIDIyLjIgMTEuNyAzMCA4LjA5OSA5LjMgMjAuMDk5IDE1IDMzLjMgMTUgMjQuOTAxIDAgNDUtMjAuMTAxIDQ1LTQ1LS4wMDEtMTQuMTAxLTYuMzAxLTI2LjQtMTYuNS0zNC41MDEiIGRhdGEtb3JpZ2luYWw9IiM5OTRjMGYiLz48cGF0aCBmaWxsPSIjNzEzNzA4IiBkPSJNMzE0Ljk4MyAzMDJjLTI0LjgxNCAwLTQ1LTIwLjE4Ni00NS00NXMyMC4xODYtNDUgNDUtNDUgNDUgMjAuMTg2IDQ1IDQ1LTIwLjE4NSA0NS00NSA0NW0tMTUgMTIwYy0xNi41MzggMC0zMC0xMy40NjItMzAtMzBzMTMuNDYyLTMwIDMwLTMwIDMwIDEzLjQ2MiAzMCAzMC0xMy40NjIgMzAtMzAgMzAiIGRhdGEtb3JpZ2luYWw9IiM3MTM3MDgiLz48cGF0aCBmaWxsPSIjNzEzNzA4IiBkPSJNMTc5Ljk4MyAyMTJjLTE2LjUzOCAwLTMwLTEzLjQ2Mi0zMC0zMHMxMy40NjItMzAgMzAtMzAgMzAgMTMuNDYyIDMwIDMwLTEzLjQ2MiAzMC0zMCAzMCIgZGF0YS1vcmlnaW5hbD0iIzk5NGMwZiIvPjxjaXJjbGUgY3g9IjQwNC4yMzgiIGN5PSIzMTguMTMiIHI9IjE1IiBmaWxsPSIjNzEzNzA4IiBkYXRhLW9yaWdpbmFsPSIjNzEzNzA4Ii8+PGNpcmNsZSBjeD0iMTA0LjIyOCIgY3k9IjI1OC4xMyIgcj0iMTUiIGZpbGw9IiM3MTM3MDgiIGRhdGEtb3JpZ2luYWw9IiM5OTRjMGYiLz48cGF0aCBmaWxsPSIjNzEzNzA4IiBkPSJNMjA5Ljk4MyAzNDdjMCAyNC44OTktMjAuMDk5IDQ1LTQ1IDQ1LTEzLjIgMC0yNS4yMDEtNS43LTMzLjMtMTVsNjEuOC02NC41MDFjMTAuMiA4LjEwMSAxNi41IDIwLjQgMTYuNSAzNC41MDEiIGRhdGEtb3JpZ2luYWw9IiM3MTM3MDgiLz48L2c+PC9zdmc+Cg=='
 
-addEventListener('fetch', event => {
+// Environment variables (set in wrangler.toml)
+declare const OPENPIMS_CONFIG_URL: string | undefined
+
+// Types
+interface CookieConfig {
+  allowed_cookies?: string[]
+}
+
+type CookieConfigResponse = string[] | CookieConfig
+
+interface Env {
+  OPENPIMS_CONFIG_URL?: string
+  ENVIRONMENT?: string
+}
+
+addEventListener('fetch', (event: FetchEvent) => {
   event.respondWith(handleRequest(event.request))
 })
 
-async function handleRequest(request) {
+async function handleRequest(request: Request): Promise<Response> {
   const xOpenpimsHeader = request.headers.get('x-openpims')
   const userAgent = request.headers.get('user-agent')
   const openPIMSUrl = parseOpenPIMSFromUserAgent(userAgent)
@@ -135,7 +150,7 @@ async function handleRequest(request) {
 
   // Add cookie management link for OpenPIMS users on HTML pages
   if ((xOpenpimsHeader || openPIMSUrl || xOpenpimsCookie) && contentType.includes('text/html')) {
-    let cookieConfigUrl
+    let cookieConfigUrl: string
 
     if (openPIMSUrl) {
       cookieConfigUrl = `${openPIMSUrl}/openpims.json`
@@ -183,7 +198,7 @@ async function handleRequest(request) {
 
   try {
     const url = new URL(request.url)
-    let cookieConfigUrl
+    let cookieConfigUrl: string
 
     if (openPIMSUrl) {
       cookieConfigUrl = `${openPIMSUrl}/openpims.json`
@@ -226,7 +241,7 @@ async function handleRequest(request) {
   }
 }
 
-async function getAllowedCookies(url) {
+async function getAllowedCookies(url: string): Promise<string[]> {
   try {
     const response = await fetch(url, {
       headers: {
@@ -239,7 +254,7 @@ async function getAllowedCookies(url) {
       return []
     }
 
-    const cookies = await response.json()
+    const cookies: CookieConfigResponse = await response.json()
 
     if (Array.isArray(cookies)) {
       return cookies
@@ -255,7 +270,7 @@ async function getAllowedCookies(url) {
   }
 }
 
-function getCookieName(cookieHeader) {
+function getCookieName(cookieHeader: string): string {
   const nameValuePair = cookieHeader.split(';')[0]
   const equalIndex = nameValuePair.indexOf('=')
 
@@ -266,7 +281,7 @@ function getCookieName(cookieHeader) {
   return nameValuePair.substring(0, equalIndex).trim()
 }
 
-function getCookieValue(cookieString, cookieName) {
+function getCookieValue(cookieString: string | null, cookieName: string): string | null {
   if (!cookieString) return null
 
   const cookies = cookieString.split(';')
@@ -280,7 +295,7 @@ function getCookieValue(cookieString, cookieName) {
   return null
 }
 
-function parseOpenPIMSFromUserAgent(userAgent) {
+function parseOpenPIMSFromUserAgent(userAgent: string | null): string | null {
   if (!userAgent) {
     return null
   }
@@ -294,8 +309,8 @@ function parseOpenPIMSFromUserAgent(userAgent) {
   return null
 }
 
-async function isRequestFromEU(request) {
-  const cf = request.cf
+async function isRequestFromEU(request: Request): Promise<boolean> {
+  const cf = (request as any).cf
 
   if (!cf || !cf.country) {
     return false

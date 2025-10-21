@@ -10,6 +10,7 @@ This Cloudflare Worker implements intelligent cookie filtering for GDPR complian
 
 ## Features
 
+- **TypeScript**: Fully typed with TypeScript for better developer experience and type safety
 - **GDPR-compliant Cookie Management**: Automatic cookie filtering for EU requests
 - **OpenPIMS Integration**: Seamless integration with the OpenPIMS cookie management system
 - **Accept-All-Cookies Mode**: Option to accept all cookies with persistent setting
@@ -49,10 +50,17 @@ npm run deploy:production
 
 ### 1. Request Processing
 
-The worker checks incoming requests for:
-- `x-openpims` header
-- `x-openpims` cookie
-- OpenPIMS in User-Agent string
+The worker checks incoming requests for OpenPIMS signals via multiple methods:
+
+**OpenPIMS Detection Methods:**
+- **Method 1: X-OpenPIMS Header** (Chrome, Firefox, Chromium)
+  - Header: `X-OpenPIMS: https://token.openpims.de`
+- **Method 2: User-Agent Signal** (Safari)
+  - Pattern: `Mozilla/5.0 (...) OpenPIMS/1.0 (+https://token.openpims.de)`
+  - Used when browser platform doesn't support custom header modification
+
+**Additional Checks:**
+- `x-openpims` cookie (legacy fallback)
 - `accept_all_cookies` query parameter
 - `openpims_accept_all_cookies` cookie
 
@@ -88,13 +96,18 @@ ENVIRONMENT = "production"  # or "staging"
 
 ### Cookie Configuration
 
-Allowed cookies are determined in this priority:
+Allowed cookies are determined from OpenPIMS signals in this priority:
 
-1. **OpenPIMS URL from User-Agent**: Format `OpenPIMS/X.X.X (+https://example.com)`
-2. **x-openpims Cookie**: URL from the `x-openpims` cookie value
-3. **x-openpims Header**: URL from the `X-OpenPIMS` header value
+1. **X-OpenPIMS Header** (Chrome, Firefox, Chromium)
+   - Header: `X-OpenPIMS: https://token.openpims.de`
+2. **User-Agent Signal** (Safari)
+   - Pattern: `OpenPIMS/1.0 (+https://token.openpims.de)`
+   - Extracted via regex: `/OpenPIMS\/[\d.]+\s+\(\+([^)]+)\)/`
+3. **x-openpims Cookie** (legacy fallback)
 4. **Environment Variable**: `OPENPIMS_CONFIG_URL`
 5. **Default**: `https://{request-domain}/openpims.json`
+
+The worker queries the OpenPIMS URL with `?url=https://{site}/openpims.json` to fetch user consent preferences.
 
 ### Configuration Format
 
@@ -129,7 +142,8 @@ As object:
 
 ## Technical Details
 
-- **Single-file Architecture**: All logic in `src/index.js`
+- **TypeScript**: Written in TypeScript with full type safety and Cloudflare Workers types
+- **Single-file Architecture**: All logic in `src/index.ts`
 - **Embedded Logo**: OpenPIMS logo embedded as Base64 Data-URL
 - **EU Detection**: Uses Cloudflare's `request.cf.country`
 - **Mobile Optimization**: Touch events and hardware acceleration

@@ -1,8 +1,8 @@
 {
   "name": "my-worker-template",
   "version": "1.0.0",
-  "description": "Cloudflare Worker template for OpenPIMS cookie filtering",
-  "main": "src/index.js",
+  "description": "TypeScript Cloudflare Worker for OpenPIMS cookie filtering",
+  "main": "src/index.ts",
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
@@ -14,11 +14,15 @@
     "worker",
     "openpims",
     "cookies",
-    "privacy"
+    "privacy",
+    "typescript",
+    "gdpr"
   ],
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20251014.0",
+    "typescript": "^5.9.3",
     "wrangler": "^4.40.3"
   }
 }
