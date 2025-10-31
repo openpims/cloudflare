@@ -150,7 +150,7 @@ As object:
 
 ## License
 
-[Insert license here]
+Apache 2.0 - See LICENSE file
 
 ## Support
 
